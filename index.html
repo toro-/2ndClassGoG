@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://delistedgames.com https://images.gog-statics.com https://shared.fastly.steamstatic.com https://shared.steamstatic.com https://thumb.wikimedia.org https://www.metacritic.com; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="gogsearch-data" content="data.cf315b4cc5.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GOG 2nd Class</title>
+  <link rel="stylesheet" href="style.bcf3ea0bdd.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>GOG 2nd Class</h1>
+    <nav aria-label="Views">
+      <a href="#search" data-page="search">Search</a>
+      <a href="#stats" data-page="stats">Stats</a>
+      <a href="#problems" data-page="problems" data-editing>Data problems</a>
+      <a href="#titles" data-page="titles" data-editing>Title checks</a>
+      <a href="#credits" data-page="credits">Credits</a>
+    </nav>
+    <span class="sheet-date" id="sheet-date"></span>
+  </header>
+
+  <main>
+    <section id="page-search" class="page" hidden>
+      <form class="filters" id="filters" autocomplete="off">
+        <input type="search" id="q" name="q" placeholder="Search titles, companies, issues…   ( / )" aria-label="Search">
+        <div class="chips" id="categories" role="group" aria-label="Categories"></div>
+        <div class="fields">
+          <label class="field">Tab
+            <select id="tab">
+              <option value="active">Active</option>
+              <option value="removed">Removed from GOG</option>
+              <option value="all">Both</option>
+            </select>
+          </label>
+          <label class="field">Publisher <input type="text" id="publisher"></label>
+          <label class="field">Developer <input type="text" id="developer"></label>
+          <label class="field">Sort
+            <select id="sort">
+              <option value="">Best</option>
+              <option value="title">Title</option>
+              <option value="issues">Most issues</option>
+            </select>
+          </label>
+          <div class="toggles">
+            <label class="chip toggle"><input type="checkbox" id="unconfirmed"> Unconfirmed</label>
+            <label class="chip toggle"><input type="checkbox" id="special"> ★ Special</label>
+            <label class="chip toggle" title="Use SQLite FTS5 syntax: OR, NOT, NEAR, column:term"><input type="checkbox" id="raw"> FTS syntax</label>
+          </div>
+        </div>
+      </form>
+      <div class="status">
+        <span id="count" aria-live="polite"></span>
+        <button type="button" class="link" id="clear">Clear filters</button>
+        <div class="segmented" role="group" aria-label="Layout">
+          <button type="button" data-view="cards">Cards</button>
+          <button type="button" data-view="table">Table</button>
+        </div>
+      </div>
+      <div id="error" class="error" hidden></div>
+      <div id="results"></div>
+      <button type="button" id="more" class="more" hidden>Show more</button>
+    </section>
+
+    <section id="page-stats" class="page" hidden>
+      <div class="status">
+        <label>Tab
+          <select id="stats-tab">
+            <option value="active">Active</option>
+            <option value="removed">Removed from GOG</option>
+          </select>
+        </label>
+        <span class="hint">Click any row to search for it.</span>
+      </div>
+      <div id="stats"></div>
+    </section>
+
+    <section id="page-problems" class="page" hidden>
+      <p class="hint">Data problems found in the sheet on import. Click a title to look it up.</p>
+      <div class="row chips" id="problem-kinds"></div>
+      <div id="problems"></div>
+    </section>
+    <section id="page-titles" class="page" hidden>
+      <p class="hint">Sheet titles that don't match the store, found while matching cover art. Fixes go in covers/overrides.json; run <code>gogsearch covers</code> to re-check.</p>
+      <div id="titles"></div>
+    </section>
+    <section id="page-credits" class="page" hidden>
+      <div id="credits" class="credits"></div>
+    </section>
+  </main>
+
+  <dialog id="editor" class="editor" aria-labelledby="ed-title">
+    <div class="ed-head">
+      <h2 id="ed-title"></h2>
+      <form method="dialog"><button class="ed-close" aria-label="Close">×</button></form>
+    </div>
+    <div class="ed-current" id="ed-current"></div>
+    <form class="ed-search" id="ed-search">
+      <input type="search" id="ed-q" aria-label="Search GOG and Steam">
+      <button type="submit">Search stores</button>
+    </form>
+    <div class="ed-results" id="ed-results"></div>
+    <div class="ed-other">
+      <form class="ed-url" id="ed-url-form">
+        <input type="url" id="ed-url" placeholder="https://… image URL" aria-label="Image URL">
+        <button type="submit">Use image URL</button>
+      </form>
+      <button type="button" id="ed-none">No cover</button>
+      <button type="button" id="ed-remove">Remove override</button>
+    </div>
+    <div class="ed-foot">
+      <span id="ed-status" aria-live="polite"></span>
+      <button type="button" class="primary" id="ed-save" disabled>Save</button>
+    </div>
+  </dialog>
+
+  <script src="search.d058348170.js"></script>
+  <script src="app.dfd181eebf.js"></script>
+</body>
+</html>
